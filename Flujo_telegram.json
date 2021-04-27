@@ -1,0 +1,324 @@
+[
+    {
+        "id": "30ee6822.38a9d8",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7dbd7255.6e728c",
+        "type": "telegram receiver",
+        "z": "30ee6822.38a9d8",
+        "name": "Telegram BConsultors Test recibe",
+        "bot": "2f497d38.f84d82",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 200,
+        "y": 360,
+        "wires": [
+            [
+                "2121ba67.1c1fe6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1f4b027f.05894e",
+        "type": "telegram sender",
+        "z": "30ee6822.38a9d8",
+        "name": "Telegram BConsultors Test Envia",
+        "bot": "2f497d38.f84d82",
+        "outputs": 1,
+        "x": 1120,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "951beac0.483368",
+        "type": "switch",
+        "z": "30ee6822.38a9d8",
+        "name": "",
+        "property": "payload.content",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "serial",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "bateria",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "co2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "iaq",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "humedad",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "temperatura",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "voc",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "resumen",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 490,
+        "y": 340,
+        "wires": [
+            [
+                "ae46c79d.a56c28"
+            ],
+            [
+                "ba8f7362.fe1e2"
+            ],
+            [
+                "c1021ff0.bb897"
+            ],
+            [
+                "886faf3a.a1a71"
+            ],
+            [
+                "83bc8f5c.fd12d"
+            ],
+            [
+                "b0e9ffc8.3c402"
+            ],
+            [
+                "921d5c8a.11828"
+            ],
+            [
+                "a593510f.2a32d"
+            ],
+            [
+                "da605dc6.cd1a3"
+            ]
+        ]
+    },
+    {
+        "id": "c1021ff0.bb897",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Co2",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Co2 \"+ tabs.payload.c02 +\" ppm\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 160,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "921d5c8a.11828",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Voc",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Componentes orgánicos en el aire \"+ tabs.payload.voc +\" mg/m3\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 400,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "b0e9ffc8.3c402",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Temperatura",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Temperatura \"+ tabs.payload.temp_ambient +\" ºC\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 770,
+        "y": 340,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "a593510f.2a32d",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Resumen",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \" Serial \"+ tabs.payload.serial +\" Modelo TABS \\r\\r\\n\\n Bateria \"+ tabs.payload.bateria +\" V \\r\\n\\n Co2 \"+ tabs.payload.c02 +\" ppm \\r\\n\\n Indice de Calidad del aire \"+ tabs.payload.iaq + \" \\r\\n\\n Humedad relativa \" + tabs.payload.rh +\" % \\r\\n\\n Temperatura \" + tabs.payload.temp_ambient +\" ºC \\r\\n\\n Componentes orgánicos en el aire \"+ tabs.payload.voc +\" mg/m3\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 460,
+        "wires": [
+            [
+                "1f4b027f.05894e",
+                "c07bfb1d.77d4e8"
+            ]
+        ]
+    },
+    {
+        "id": "886faf3a.a1a71",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "IAQ",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Indice de Calidad del aire \"+ tabs.payload.iaq;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 220,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "83bc8f5c.fd12d",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Humedad",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Humedad relativa  \"+ tabs.payload.rh +\" %\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 760,
+        "y": 280,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "ba8f7362.fe1e2",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "bateria",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Bateria \"+ tabs.payload.bateria +\" V\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 100,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "da605dc6.cd1a3",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Ayuda",
+        "func": "msg.payload.content= \"Los comandos disponibles son:\\r\\n\\n resumen - Muestra un resumen de todos los parámetros\\r\\n\\n serial - Serial del Sensor \\r\\n\\n bateria - Batería actual del sensor LoraWAN \\r\\n\\n c02 - Concentración de Co2 ppm \\r\\n\\n iaq - Índice de calidad del aire \\r\\n\\n humedad - Humedad relativa \\r\\n\\n temperatura - Temperatura \\r\\n\\n voc - Componentes orgánicos en el aire\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "ae46c79d.a56c28",
+        "type": "function",
+        "z": "30ee6822.38a9d8",
+        "name": "Serial",
+        "func": "var tabs;\ntabs=global.get(\"tabs\");\nmsg.payload.content= \"Serial \"+ tabs.payload.serial +\" Modelo TABS\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 750,
+        "y": 40,
+        "wires": [
+            [
+                "1f4b027f.05894e"
+            ]
+        ]
+    },
+    {
+        "id": "2121ba67.1c1fe6",
+        "type": "debug",
+        "z": "30ee6822.38a9d8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 480,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "c07bfb1d.77d4e8",
+        "type": "debug",
+        "z": "30ee6822.38a9d8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1040,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "2f497d38.f84d82",
+        "type": "telegram bot",
+        "z": "",
+        "botname": "@bconsultors_test_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]
