@@ -1,0 +1,34 @@
+
+//Payload a variable
+let payloadData = msg.payload;
+
+//Sacamos la bateria
+let batteryRaw = ('0x' + payloadData.substr(1,3)) & 0x3FFF;
+let batteryDec = batteryRaw/1000;
+
+// Obtenemos el estado de la fuga
+let statusNow = Number('0x' + payloadData.substr(0,2)) & 0x40?1:0;
+
+// Modelo  siempre 0x02
+let Moddata = (payloadData.substr(4,2));
+
+// Numero total de fugas
+let totalLeaks = (payloadData.substr(6,6));
+
+//Tiemp de la ultima fuga
+let lastleakduration = (payloadData.substr(12,6));
+
+
+//creamos la salida de la variable    
+msg.payload = {
+    data : batteryDec,
+    Status : statusNow,
+    Mod : Moddata,
+    leaks : totalLeaks,
+    duration : lastleakduration
+}
+
+return msg;
+
+
+
