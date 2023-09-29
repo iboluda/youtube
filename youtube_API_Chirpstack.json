@@ -1,0 +1,227 @@
+[
+    {
+        "id": "80ff5316649f9e5f",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f8bb132cc4f65584",
+        "type": "http request",
+        "z": "80ff5316649f9e5f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.147.37:8090/api/devices",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Grpc-Metadata-Authorization",
+                "valueType": "other",
+                "valueValue": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6ImVhNmRiNTBiLWYwMjctNDBiNi1hZDE5LWM2ZmY5NjQ4MjZiOSIsInR5cCI6ImtleSJ9.0PetdGtaLveOQkIgstWzTT_hqQ0MtaofrmKeoq5TLoM"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Content-Type",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "accept",
+                "valueType": "other",
+                "valueValue": "application/json"
+            }
+        ],
+        "x": 790,
+        "y": 420,
+        "wires": [
+            [
+                "9f319778df80207b"
+            ]
+        ]
+    },
+    {
+        "id": "8c747427dd550204",
+        "type": "inject",
+        "z": "80ff5316649f9e5f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 280,
+        "y": 420,
+        "wires": [
+            [
+                "9942e851d73b3649"
+            ]
+        ]
+    },
+    {
+        "id": "9942e851d73b3649",
+        "type": "function",
+        "z": "80ff5316649f9e5f",
+        "name": "function 1",
+        "func": "var deveui = [\"aaaaaaaaaaaaaaaa\", \"bbbbbbbbbbbbbbbb\", \"cccccccccccccccc\"]\n\nvar appkey = [\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\", \"cccccccccccccccccccccccccccccccc\"]\n\nvar name = [\"AA\", \"BB\", \"CC\"]\n\nfor (let i = 0; i < deveui.length; i++) {\n\n  msg.payload =\n  {\n    \"device\": {\n        \"applicationId\": \"28aee715-6a59-46bf-a3db-42991b06de56\",\n        \"description\": \"\",\n        \"devEui\": deveui[i],\n        \"deviceProfileId\": \"d0b05047-4e73-4230-a800-96411a5ae0c1\",\n        \"isDisabled\": false,\n        \"joinEui\": \"\",\n        \"name\": name[i],\n        \"skipFcntCheck\": false,\n    }\n\n  }\n  node.send(msg)\n}\n//return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 420,
+        "wires": [
+            [
+                "f8bb132cc4f65584"
+            ]
+        ]
+    },
+    {
+        "id": "9f319778df80207b",
+        "type": "debug",
+        "z": "80ff5316649f9e5f",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "8e86111a98fac783",
+        "type": "function",
+        "z": "80ff5316649f9e5f",
+        "name": "function 2",
+        "func": "msg.payload =\n{\n    \"deviceKeys\": {\n        \"nwkKey\": \"e2b1e392160308b19899ad5877a4175e\"\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b7f2027fd2077b0d",
+        "type": "inject",
+        "z": "80ff5316649f9e5f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 580,
+        "wires": [
+            [
+                "8e86111a98fac783",
+                "8ce84076ad824347"
+            ]
+        ]
+    },
+    {
+        "id": "3cb8c807f3749e3e",
+        "type": "http request",
+        "z": "80ff5316649f9e5f",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "Grpc-Metadata-Authorization",
+                "valueType": "other",
+                "valueValue": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjaGlycHN0YWNrIiwiaXNzIjoiY2hpcnBzdGFjayIsInN1YiI6ImVhNmRiNTBiLWYwMjctNDBiNi1hZDE5LWM2ZmY5NjQ4MjZiOSIsInR5cCI6ImtleSJ9.0PetdGtaLveOQkIgstWzTT_hqQ0MtaofrmKeoq5TLoM"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "Content-Type",
+                "valueType": "other",
+                "valueValue": "application/json"
+            },
+            {
+                "keyType": "other",
+                "keyValue": "accept",
+                "valueType": "other",
+                "valueValue": "application/json"
+            }
+        ],
+        "x": 790,
+        "y": 580,
+        "wires": [
+            [
+                "9f319778df80207b"
+            ]
+        ]
+    },
+    {
+        "id": "8ce84076ad824347",
+        "type": "function",
+        "z": "80ff5316649f9e5f",
+        "name": "function 3",
+        "func": "var deveui = [\"aaaaaaaaaaaaaaaa\", \"bbbbbbbbbbbbbbbb\",\"cccccccccccccccc\"]\n\nvar appkey = [\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"cccccccccccccccccccccccccccccccc\"]\n\nvar name = [\"AA\",\"BB\",\"CC\"]\n\n\n\nfor (let i = 0; i < deveui.length; i++) {\n\n  msg.url = \"http://192.168.147.37:8090/api/devices/\" + deveui[i] + \"/keys\";\n\n  msg.payload =\n  {\n    \"deviceKeys\": {\n      \"nwkKey\": appkey[i]\n    }\n  }\n  node.send(msg)\n}\n//return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 660,
+        "wires": [
+            [
+                "3cb8c807f3749e3e"
+            ]
+        ]
+    }
+]
